@@ -88,6 +88,68 @@ class CalcularResultadosServiceSpec extends Specification {
 		"cruzeiro" | 1        | 0       | "corinthians" | 0         | 3        | ["cruzeiro","corinthians"]
 
 	}
+	void "Busca em uma lista ordena o campeão do campeonato"(){
+		given:
+
+		Clube campeao
+
+		Clube clube1 = new Clube(
+				nome: nome,
+				vitorias: vitorias,
+				empates: empates
+		)
+		Clube clube2 = new Clube(
+				nome: nome2,
+				vitorias: vitorias2,
+				empates: empates2
+		)
+		Campeonato campeonato = mock(Campeonato) {
+			getClubesParticipantes().returns([clube1, clube2])
+		}
+		play {
+			campeao = service.retorneCampeao(campeonato)
+		}
+
+		expect:
+		campeao.nome == vencedor
+		where:
+		nome       | vitorias | empates | nome2         | vitorias2 | empates2 | vencedor
+		"cruzeiro" | 0        | 0       | "corinthians" | 1         | 0        | "corinthians"
+		"cruzeiro" | 1        | 0       | "corinthians" | 0         | 0        | "cruzeiro"
+		"cruzeiro" | 10       | 1       | "corinthians" | 0         | 10       | "cruzeiro"
+		"cruzeiro" | 1        | 0       | "corinthians" | 0         | 3        | "cruzeiro"
+	}
+	void "Busca em uma lista ordena o lanterna do campeonato"(){
+		given:
+
+		Clube lanterna
+
+		Clube clube1 = new Clube(
+				nome: nome,
+				vitorias: vitorias,
+				empates: empates
+		)
+		Clube clube2 = new Clube(
+				nome: nome2,
+				vitorias: vitorias2,
+				empates: empates2
+		)
+		Campeonato campeonato = mock(Campeonato) {
+			getClubesParticipantes().returns([clube1, clube2])
+		}
+		play {
+			lanterna = service.retorneUltimoColocado(campeonato)
+		}
+
+		expect:
+		lanterna.nome == vencedor
+		where:
+		nome       | vitorias | empates | nome2         | vitorias2 | empates2 | vencedor
+		"cruzeiro" | 0        | 0       | "corinthians" | 1         | 0        | "cruzeiro"
+		"cruzeiro" | 1        | 0       | "corinthians" | 0         | 0        | "corinthians"
+		"cruzeiro" | 10       | 1       | "corinthians" | 0         | 10       | "corinthians"
+		"cruzeiro" | 1        | 0       | "corinthians" | 0         | 3        | "corinthians"
+	}
 
 
 }

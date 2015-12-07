@@ -7,12 +7,14 @@ class CalcularResultadosService implements CalcularDados{
 
     @Override
     Clube retorneCampeao(Campeonato campeonato) {
-        return null
+        List<Clube> clubes = ordenaListaClubes(campeonato)
+        return clubes.first()
     }
 
     @Override
     Clube retorneUltimoColocado(Campeonato campeonato) {
-        return null
+        List<Clube> clubes = ordenaListaClubes(campeonato)
+        return clubes.last()
     }
 
     int calculePontuacao(Clube clube) {
