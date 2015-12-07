@@ -12,6 +12,8 @@ class Clube {
         return golsPro - golsContra
     }
 
+    static belongsTo = [campeonato:Campeonato]
+
     static constraints = {
     }
 }
