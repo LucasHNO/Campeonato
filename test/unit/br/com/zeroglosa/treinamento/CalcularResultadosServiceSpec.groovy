@@ -1,12 +1,14 @@
 package br.com.zeroglosa.treinamento
 
 import grails.test.mixin.TestFor
+import org.gmock.WithGMock
 import spock.lang.Specification
 
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
  */
 @TestFor(CalcularResultadosService)
+@WithGMock
 class CalcularResultadosServiceSpec extends Specification {
 
 	void "Calcula pontuanção time de acordo com as vitórias e empates, retorna vitorias * 3 + empates"() {
@@ -53,6 +55,39 @@ class CalcularResultadosServiceSpec extends Specification {
 
 	}
 
+	void "Ordenação de uma lista de times considerando a pontuação e os critérios de desempate,deverá retornar a lista ordenada de times"() {
+		given:
+
+		List<Clube> clubes = null
+
+		Clube clube1 = new Clube(
+				nome: nome,
+				vitorias: vitorias,
+				empates: empates
+		)
+		Clube clube2 = new Clube(
+				nome: nome2,
+				vitorias: vitorias2,
+				empates: empates2
+		)
+		Campeonato campeonato = mock(Campeonato) {
+			getClubesParticipantes().returns([clube1, clube2])
+		}
+		play {
+			clubes = service.ordenaListaClubes(campeonato)
+		}
+
+		expect:
+		clubes*.nome == lista
+
+		where:
+		nome       | vitorias | empates | nome2         | vitorias2 | empates2 | lista
+		"cruzeiro" | 0        | 0       | "corinthians" | 1         | 0        | ["corinthians","cruzeiro"]
+		"cruzeiro" | 1        | 0       | "corinthians" | 0         | 0        | ["cruzeiro","corinthians"]
+		"cruzeiro" | 10       | 1       | "corinthians" | 0         | 10       | ["cruzeiro","corinthians"]
+		"cruzeiro" | 1        | 0       | "corinthians" | 0         | 3        | ["cruzeiro","corinthians"]
+
+	}
 
 
 }
