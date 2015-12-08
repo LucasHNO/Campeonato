@@ -10,7 +10,6 @@ class Campeonato {
 		clubesParticipantes+=clube
 	}
 
-	static hasMany = [clubes:Clube]
 
 
 	static constraints = {

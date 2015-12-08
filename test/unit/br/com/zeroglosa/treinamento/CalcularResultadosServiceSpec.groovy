@@ -121,7 +121,6 @@ class CalcularResultadosServiceSpec extends Specification {
 	}
 	void "Busca em uma lista ordena o lanterna do campeonato"(){
 		given:
-
 		Clube lanterna
 
 		Clube clube1 = new Clube(
