@@ -18,6 +18,7 @@ class CampeonatoController {
             render "Campeonato ${campeonato.nome} criado com sucesso"
 
     }
+
     void adicionaClubes(Campeonato campeonato){
 
         Clube time = new Clube(

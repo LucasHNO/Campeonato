@@ -4,7 +4,7 @@ class Campeonato {
 
 	String nome
 
-	List <Clube> clubesParticipantes = []
+	def clubesParticipantes = []
 
 	void adicionaClubes(Clube clube){
 		clubesParticipantes+=clube
