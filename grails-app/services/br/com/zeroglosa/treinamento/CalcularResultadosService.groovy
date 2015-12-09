@@ -8,6 +8,7 @@ class CalcularResultadosService implements CalcularDados{
     @Override
     Clube retorneCampeao(Campeonato campeonato) {
         List<Clube> clubes = ordenaListaClubes(campeonato)
+
         return clubes.first()
     }
 

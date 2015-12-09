@@ -46,9 +46,9 @@
 </div>
 
 
-
+<div id="mensagem"></div>
 <div id="times">
-    <g:formRemote name="frmTimes" url="[controller: 'campeonato', action: 'criaCampeonato']">
+    <g:formRemote name="frmTimes" url="[controller: 'campeonato', action: 'criaCampeonato']" update="mensagem">
         Nome Campeonato<input type="text" name="nomeCampeonato" value=""><br>
         Nome Time<input type="text" name="nome" value=""><br>
         Vitórias<input type="text" name="vitorias" value=""><br>
@@ -60,6 +60,14 @@
 
     </g:formRemote>
 </div>
+<div id="RetornaDados">
+    <g:formRemote name="frmResultados" url="[controller: 'campeonato', action: 'exibeCampeao']">
+      <input type="submit" name="btnSolicitar" value="Exibir Campeao">
+    </g:formRemote>
+
+</div>
+
+
 
 </body>
 </html>

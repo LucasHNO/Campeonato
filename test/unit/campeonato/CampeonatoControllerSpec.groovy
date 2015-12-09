@@ -26,4 +26,12 @@ class CampeonatoControllerSpec extends Specification {
         response.text == "Clube Cruzeiro adicionado ao campeonato"
 
     }
+
+    void "Verifica o retorno do time campeão"(){
+        when:
+        Campeonato campeonato = new Campeonato(nome:"Brasileirao")
+
+        then:
+        response.text == "O campeão é o cruzeiro"
+    }
 }
