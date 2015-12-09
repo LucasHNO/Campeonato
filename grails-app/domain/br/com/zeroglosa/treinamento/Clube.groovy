@@ -8,6 +8,8 @@ class Clube {
     int golsPro
     int golsContra
 
+    static belongsTo = [campeonato:Campeonato]
+
     int getSaldo(){
         return golsPro - golsContra
     }

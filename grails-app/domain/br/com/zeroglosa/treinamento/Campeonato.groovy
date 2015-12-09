@@ -4,6 +4,8 @@ class Campeonato {
 
 	String nome
 
+	static hasMany = [clubes:Clube]
+
 	def clubesParticipantes = []
 
 	void adicionaClubes(Clube clube){
