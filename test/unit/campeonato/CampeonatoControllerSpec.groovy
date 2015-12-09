@@ -10,29 +10,20 @@ import spock.lang.Specification
 @TestFor(CampeonatoController)
 class CampeonatoControllerSpec extends Specification {
 
-    void "Verifica funcao cria campeonato, apos criado renderiza criado com sucesso na view"() {
-        when:
-        params.nome = "Brasileirao"
-        controller.criaCampeonato()
-
-        then:
-        response.text == "Campeonato Brasileirao criado com sucesso"
-
-    }
 
     void "Verifica adição de clubes, retorna que o time foi adicionado com sucesso"(){
         when:
-        Campeonato campeonato = new Campeonato(nome:"Brasileirão")
+        params.nomeCampeonato = "Brasileirao"
         params.nome = "Cruzeiro"
         params.vitorias = 3
         params.derrotas = 3
         params.empates = 4
         params.golsPro = 10
         params.golsContra = 0
-        controller.adicionaClubes(campeonato)
+        controller.adicionaClubes()
 
         then:
-        response.text == "Clube Cruzeiro adicionado ao campeonato Brasileirão"
+        response.text == "Clube Cruzeiro adicionado ao campeonato"
 
     }
 }

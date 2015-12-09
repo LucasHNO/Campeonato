@@ -4,34 +4,36 @@ import br.com.zeroglosa.treinamento.Campeonato
 import br.com.zeroglosa.treinamento.Clube
 
 class CampeonatoController {
-
-
-
-
     def index() {
-
-
+        render(view:"/campeonato/index")
     }
 
-    void criaCampeonato(){
-        Campeonato campeonato = new Campeonato(nome: "${params.nome}")
-            render "Campeonato ${campeonato.nome} criado com sucesso"
-
+    def criaCampeonato(){
+        adicionaClubes()
     }
 
-    void adicionaClubes(Campeonato campeonato){
+    def adicionaClubes(){
+
+        Campeonato campeonato = new Campeonato(nome: params.nomeCampeonato)
+        campeonato.save(flush: true)
+
 
         Clube time = new Clube(
+                campeonato: campeonato,
                 nome: params.nome,
-                vitorias: params.vitorias,
-                derrotas: params.derrotas,
-                empates: params.empates,
-                golsPro: params.golsPro,
-                golsContra: params.golsContra
+                vitorias: params.vitorias.toInteger(),
+                derrotas: params.derrotas.toInteger(),
+                empates: params.empates.toInteger(),
+                golsPro: params.golsPro.toInteger(),
+                golsContra: params.golsContra.toInteger()
         )
 
+        time.save(flush: true)
         campeonato.adicionaClubes(time)
 
-        render "Clube ${time.nome} adicionado ao campeonato ${campeonato.nome}"
+
+
+
+        render ("Clube ${time.nome} adicionado ao campeonato")
     }
 }
