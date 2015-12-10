@@ -25,9 +25,9 @@ class CalcularResultadosService implements CalcularDados{
 
     @Override
     List<Clube> ordenaListaClubes(Campeonato campeonato) {
-        List<Clube> clubes = campeonato.clubesParticipantes
+        List<Clube> clubes
+        clubes = campeonato.clubes.asList()
         Collections.sort(clubes,this)
-
         clubes.reverse()
     }
 

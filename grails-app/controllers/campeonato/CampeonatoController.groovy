@@ -11,45 +11,45 @@ class CampeonatoController {
     def campeonatoService
 
     def index() {
-        render(view:"/campeonato/index")
+        render(view: "/campeonato/index")
     }
 
-    def criaCampeonato(){
-            adicionaClubes()
+    def criaCampeonato() {
+        adicionaClubes()
     }
 
-    def adicionaClubes(){
-
+    def adicionaClubes() {
         Campeonato campeonato = campeonatoService.criaCampeonato(params.nomeCampeonato)
 
-        Clube time = new Clube(
-                campeonato: campeonato,
-                nome: params.nome,
-                vitorias: params.vitorias.toInteger(),
-                derrotas: params.derrotas.toInteger(),
-                empates: params.empates.toInteger(),
-                golsPro: params.golsPro.toInteger(),
-                golsContra: params.golsContra.toInteger()
-        )
-        time.save(flush: true)
-        campeonato.adicionaClubes(time)
+        Clube time = campeonatoService.adicionaTimes(campeonato, params.nome, params.vitorias, params.derrotas,
+                params.empates, params.golsPro, params.golsContra)
 
-
-        render ("Clube ${time.nome} adicionado ao campeonato ${campeonato.nome}")
+        render("Clube ${time.nome} adicionado ao campeonato ${campeonato.nome}")
     }
 
-    def exibeCampeao(){
+    def exibeCampeao() {
         Clube campeao
 
-        if(!campeonato){
-            render ("Campeonato não iniciado!")
+        Campeonato campeonato = Campeonato.get(params.id)
+
+        if (!campeonato) {
+            render("Campeonato não iniciado!")
+        } else {
+            campeao = calcularResultadosService.retorneCampeao(campeonato)
+            render("O campeão é o ${campeao.nome}")
+        }
+    }
+    def exibeLanterna(){
+        Clube lanterna
+
+        Campeonato campeonato = Campeonato.get(params.id)
+        if (!campeonato) {
+            render("Campeonato não iniciado!")
+        } else {
+            lanterna = calcularResultadosService.retorneUltimoColocado(campeonato)
+            render("O campeão é o ${lanterna.nome}")
         }
 
-        else
-        {
-            campeao = calcularResultadosService.retorneCampeao(campeonato)
-            render ("O campeão é o ${campeao.nome}")
-        }
     }
 
 

@@ -8,9 +8,4 @@ interface CalcularDados extends Comparator<Clube> {
 	Clube retorneUltimoColocado(Campeonato campeonato)
 
 	List<Clube> ordenaListaClubes(Campeonato campeonato)
-
-
-
-
-
 }

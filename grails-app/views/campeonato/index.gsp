@@ -1,7 +1,7 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="br.com.zeroglosa.treinamento.Campeonato" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <g:javascript library="jquery" />
+    <g:javascript library="jquery"/>
 
     <style type="text/css">
     #principal_superior {
@@ -10,16 +10,9 @@
         clear: both;
     }
 
-    #campeonato {
-        width: 90%;
-        border: 2px solid black;
-        clear: both;
-
-    }
-
     #times {
         width: 90%;
-        border: 2px solid #b2d1ff;
+        border: 2px solid black;
         clear: both;
     }
 
@@ -47,6 +40,7 @@
 
 
 <div id="mensagem"></div>
+
 <div id="times">
     <g:formRemote name="frmTimes" url="[controller: 'campeonato', action: 'criaCampeonato']" update="mensagem">
         Nome Campeonato<input type="text" name="nomeCampeonato" value=""><br>
@@ -60,14 +54,29 @@
 
     </g:formRemote>
 </div>
-<div id="RetornaDados">
+
+<div id="RetornaDadosCampeao">
     <g:formRemote name="frmResultados" url="[controller: 'campeonato', action: 'exibeCampeao']">
-      <input type="submit" name="btnSolicitar" value="Exibir Campeao">
+        <g:select name="id"
+                  optionKey="id"
+                  from="${Campeonato.list()}"
+                  optionValue="nome"
+                  value="id"
+                  noSelection="['null': 'Selecione Campeonato']"/>
+        <input type="submit" name="btnSolicitar" value="Exibir Campeao">
     </g:formRemote>
-
 </div>
-
-
+<div id="RetornaDadosLanterna">
+    <g:formRemote name="frmResultados" url="[controller: 'campeonato', action: 'exibeLanterna']">
+        <g:select name="id"
+                  optionKey="id"
+                  from="${Campeonato.list()}"
+                  optionValue="nome"
+                  value="id"
+                  noSelection="['null': 'Selecione Campeonato']"/>
+        <input type="submit" name="btnSolicitar" value="Exibir Lanterna">
+    </g:formRemote>
+</div>
 
 </body>
 </html>
