@@ -4,6 +4,7 @@ import br.com.zeroglosa.treinamento.CalcularDados
 import br.com.zeroglosa.treinamento.CalcularResultadosService
 import br.com.zeroglosa.treinamento.Campeonato
 import br.com.zeroglosa.treinamento.Clube
+import grails.converters.JSON;
 
 class CampeonatoController {
 
@@ -15,16 +16,22 @@ class CampeonatoController {
     }
 
     def criaCampeonato() {
-        adicionaClubes()
+        def retorno = [:]
+        Campeonato campeonato = campeonatoService.criaCampeonato(params.nomeCampeonato)
+        retorno["mensagem"]="OK"
+
+        render retorno as JSON
+
     }
 
     def adicionaClubes() {
-        Campeonato campeonato = campeonatoService.criaCampeonato(params.nomeCampeonato)
-
+        def retorno = [:]
+        Campeonato campeonato =  Campeonato.get(params.id)
         Clube time = campeonatoService.adicionaTimes(campeonato, params.nome, params.vitorias, params.derrotas,
                 params.empates, params.golsPro, params.golsContra)
+        retorno["mensagem"]="OK"
 
-        render("Clube ${time.nome} adicionado ao campeonato ${campeonato.nome}")
+        render retorno as JSON
     }
 
     def exibeCampeao() {
@@ -47,7 +54,7 @@ class CampeonatoController {
             render("Campeonato não iniciado!")
         } else {
             lanterna = calcularResultadosService.retorneUltimoColocado(campeonato)
-            render("O campeão é o ${lanterna.nome}")
+            render("O lanterna é o ${lanterna.nome}")
         }
 
     }

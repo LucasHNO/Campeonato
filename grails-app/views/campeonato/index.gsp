@@ -1,24 +1,67 @@
 <%@ page import="br.com.zeroglosa.treinamento.Campeonato" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
+    <title>Campeonato Zero Glosa</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <g:javascript library="jquery"/>
+    <script type="text/javascript">
+
+        function retornoSalvarCampeonato(data){
+                $("#divMensagemCampeonato").html("Campeonato salvo com sucesso.")
+                $("#frmCampeonato input[name=nomeCampeonato]").val("")
+        }
+
+        function retornoSalvarTime(data){
+                $("#divMensagemClube").html("Clube adicionado com sucesso.")
+                $("#frmTimes input[name=nome]").val("")
+                $("#frmTimes input[name=vitorias]").val("")
+                $("#frmTimes input[name=empates]").val("")
+                $("#frmTimes input[name=derrotas]").val("")
+                $("#frmTimes input[name=golsPro]").val("")
+                $("#frmTimes input[name=golsContra]").val("")
+        }
+
+    </script>
 
     <style type="text/css">
     #principal_superior {
         width: 90%;
+        padding:6px 4px;
         border: 2px solid black;
         clear: both;
     }
-
-    #times {
-        width: 90%;
+    #campeonatos{
+        width: 45%;
+        padding:6px 4px;
         border: 2px solid black;
         clear: both;
+        left: auto;
+    }
+
+    #times {
+        width: 45%;
+        padding:6px 4px;
+        border: 2px solid black;
+        clear: both;
+        left: auto;
+    }
+    #RetornaDadosCampeao{
+        display:inline-block;
+        width: 22.5%;
+        border: 2px solid black;
+        clear: both;
+        left: auto;
+    }
+    #RetornaDadosLanterna{
+        display:inline-block;
+        width: 22.5%;
+        border: 2px solid black;
+        clear: both;
+        left: auto;
     }
 
     </style>
 
-    <title>Campeonato Zero Glosa</title>
 </head>
 
 <body>
@@ -37,26 +80,40 @@
         <li>Número de vitórias</li>
     </ul>
 </div>
+<div id="campeonatos">
+    <h3>Adicionar Novo Campeonato</h3>
+    <div id="divMensagemCampeonato"></div>
+    <g:formRemote id="frmCampeonato" name="frmCampeonato" url="[controller: 'campeonato', action: 'criaCampeonato']"  onSuccess="retornoSalvarCampeonato(data)">
+    Nome Campeonato: <input type="text" name="nomeCampeonato" value="" >
+    <input type="submit" name="btnSalvar" value="Salvar">
+    </g:formRemote>
+</div>
 
-
-<div id="mensagem"></div>
 
 <div id="times">
-    <g:formRemote name="frmTimes" url="[controller: 'campeonato', action: 'criaCampeonato']" update="mensagem">
-        Nome Campeonato<input type="text" name="nomeCampeonato" value=""><br>
-        Nome Time<input type="text" name="nome" value=""><br>
-        Vitórias<input type="text" name="vitorias" value=""><br>
-        Derrotas<input type="text" name="derrotas" value=""><br>
-        Empates<input type="text" name="empates" value=""><br>
-        Gols Pró<input type="text" name="golsPro" value=""><br>
-        Gols Contra<input type="text" name="golsContra" value=""><br>
-        <input type="submit" name="btnSalvar" value="Salvar">
+    <h3>Adicionar Times ao Campeonato</h3>
+    <div id="divMensagemClube"></div>
+    <g:formRemote name="frmTimes" url="[controller: 'campeonato', action: 'adicionaClubes']" update="mensagem"  onSuccess="retornoSalvarTime(data)">
+        Nome Campeonato: <g:select name="id"
+                  optionKey="id"
+                  from="${Campeonato.list()}"
+                  optionValue="nome"
+                  value="id"
+                  noSelection="['null': 'Selecione Campeonato']"/><br>
+        <label> Nome Time: <input type="text" name="nome" value="" ><br>
+        <label> Vitórias:  <input type="text" name="vitorias" value="" ><br>
+        <label> Derrotas: <input type="text" name="derrotas" value=""><br>
+        <label> Empates: <input type="text" name="empates" value=""><br>
+        <label> Gols Pró: <input type="text" name="golsPro" value=""><br>
+        <label> Gols Contra: <input type="text" name="golsContra" value=""><br>
+        <label><input type="submit" name="btnSalvar" value="Salvar">
 
     </g:formRemote>
 </div>
 
 <div id="RetornaDadosCampeao">
-    <g:formRemote name="frmResultados" url="[controller: 'campeonato', action: 'exibeCampeao']">
+    <h3>Exibir Campeão</h3>
+    <g:formRemote  name="frmResultadosCampeao" url="[controller: 'campeonato', action: 'exibeCampeao']">
         <g:select name="id"
                   optionKey="id"
                   from="${Campeonato.list()}"
@@ -67,7 +124,8 @@
     </g:formRemote>
 </div>
 <div id="RetornaDadosLanterna">
-    <g:formRemote name="frmResultados" url="[controller: 'campeonato', action: 'exibeLanterna']">
+    <h3>Exibir Lanterna</h3>
+    <g:formRemote name="frmResultadosLanterna" url="[controller: 'campeonato', action: 'exibeLanterna']">
         <g:select name="id"
                   optionKey="id"
                   from="${Campeonato.list()}"
@@ -77,6 +135,7 @@
         <input type="submit" name="btnSolicitar" value="Exibir Lanterna">
     </g:formRemote>
 </div>
+
 
 </body>
 </html>

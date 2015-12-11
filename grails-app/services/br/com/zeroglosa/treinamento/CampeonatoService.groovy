@@ -9,7 +9,7 @@ class CampeonatoService {
 
         Campeonato campeonato = Campeonato.findByNome(nome)
 
-        if (campeonato?.nome!=nome) {
+        if (!campeonato) {
             campeonato = new Campeonato(nome: nome)
         }
         campeonato.validate()
