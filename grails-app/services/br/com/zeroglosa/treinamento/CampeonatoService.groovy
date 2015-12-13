@@ -19,8 +19,10 @@ class CampeonatoService {
         }
         return campeonato
     }
-    Clube adicionaTimes(Campeonato campeonato,String nome, String vitorias,String derrotas, String empates,
+    Clube adicionaTimes(String idCampeonato,String nome, String vitorias,String derrotas, String empates,
                         String golsPro,String golsContra){
+
+        Campeonato campeonato =  Campeonato.get(idCampeonato)
 
         Clube time = new Clube(
                 campeonato: campeonato,
@@ -37,9 +39,6 @@ class CampeonatoService {
         return time
 
     }
-
-
-
 
 
 

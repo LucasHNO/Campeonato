@@ -9,9 +9,7 @@ import spock.lang.Specification
 
 class CampeonatoSpec extends Specification {
 
-	void "Calcula adição de clubes a lista presentes no campeonato"() {
-
-
+	void ""() {
 
 	}
 }

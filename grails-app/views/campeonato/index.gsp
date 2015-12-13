@@ -7,18 +7,22 @@
     <script type="text/javascript">
 
         function retornoSalvarCampeonato(data){
-                $("#divMensagemCampeonato").html("Campeonato salvo com sucesso.")
+                $("#divMensagemCampeonato").html(data.toString())
                 $("#frmCampeonato input[name=nomeCampeonato]").val("")
+                confirm(data.toString())
+                parent.window.document.location.href = '';
         }
 
         function retornoSalvarTime(data){
-                $("#divMensagemClube").html("Clube adicionado com sucesso.")
+                $("#divMensagemClube").html(data.toString())
+                confirm(data.toString())
                 $("#frmTimes input[name=nome]").val("")
                 $("#frmTimes input[name=vitorias]").val("")
                 $("#frmTimes input[name=empates]").val("")
                 $("#frmTimes input[name=derrotas]").val("")
                 $("#frmTimes input[name=golsPro]").val("")
                 $("#frmTimes input[name=golsContra]").val("")
+                parent.window.document.location.href = '';
         }
 
     </script>
@@ -113,7 +117,7 @@
 
 <div id="RetornaDadosCampeao">
     <h3>Exibir Campeão</h3>
-    <g:formRemote  name="frmResultadosCampeao" url="[controller: 'campeonato', action: 'exibeCampeao']">
+    <g:formRemote  name="frmResultadosCampeao" url="[controller: 'campeonato', action: 'exibeCampeao']" onSuccess="retornoSalvarTime(data)">
         <g:select name="id"
                   optionKey="id"
                   from="${Campeonato.list()}"
