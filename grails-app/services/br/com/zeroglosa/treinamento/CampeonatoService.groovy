@@ -4,6 +4,7 @@ import grails.transaction.Transactional
 
 @Transactional
 class CampeonatoService {
+    def calcularResultadosService
 
     Campeonato criaCampeonato(String nome) {
 
@@ -37,6 +38,19 @@ class CampeonatoService {
 
 
         return time
+
+    }
+    Clube obterCampeao(String idCampeonato){
+        Clube campeao
+        Campeonato campeonato = Campeonato.get(idCampeonato)
+        campeao = calcularResultadosService.retorneCampeao(campeonato)
+
+    }
+
+    Clube obterLanterna(String idCampeonato){
+        Clube lanterna
+        Campeonato campeonato = Campeonato.get(idCampeonato)
+        lanterna = calcularResultadosService.retorneUltimoColocado(campeonato)
 
     }
 

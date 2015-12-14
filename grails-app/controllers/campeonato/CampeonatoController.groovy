@@ -29,14 +29,14 @@ class CampeonatoController {
 
     def exibeCampeao() {
         Clube campeao
-            campeao = calcularResultadosService.retorneCampeao(params.id)
+            campeao = campeonatoService.obterCampeao(params.id)
             render("O campeão é o ${campeao.nome}")
 
     }
     def exibeLanterna(){
         Clube lanterna
 
-            lanterna = calcularResultadosService.retorneUltimoColocado(params.id)
+            lanterna = campeonatoService.obterLanterna(params.id)
             render("O lanterna é o ${lanterna.nome}")
 
 

@@ -92,11 +92,9 @@ class CalcularResultadosServiceSpec extends Specification {
     }
 
     void "Busca em uma lista ordena o campeão do campeonato"() {
-    }
-
-    void "Busca em uma lista ordena o lanterna do campeonato"() {
         given:
-        Clube lanterna
+        Clube campeao
+        List<Clube> clubes = null
 
         Clube clube1 = new Clube(
                 nome: nome,
@@ -109,20 +107,90 @@ class CalcularResultadosServiceSpec extends Specification {
                 empates: empates2
         )
         Campeonato campeonato = mock(Campeonato) {
-            getClubesParticipantes().returns([clube1, clube2])
+            getClubes().returns([clube1, clube2])
+        }
+        play {
+            campeao = service.retorneCampeao(campeonato)
+        }
+        expect:
+        campeao.nome == vencedor
+        where:
+        nome       | vitorias | empates | nome2         | vitorias2 | empates2 | vencedor
+        "cruzeiro" | 0        | 0       | "corinthians" | 1         | 0        | "corinthians"
+        "cruzeiro" | 1        | 0       | "corinthians" | 0         | 0        | "cruzeiro"
+        "cruzeiro" | 10       | 1       | "corinthians" | 0         | 10       | "cruzeiro"
+        "cruzeiro" | 1        | 0       | "corinthians" | 0         | 3        | "cruzeiro"
+    }
+
+    void "Busca em uma lista ordena o lanterna do campeonato"() {
+        given:
+        Clube lanterna
+        List<Clube> clubes = null
+
+        Clube clube1 = new Clube(
+                nome: nome,
+                vitorias: vitorias,
+                empates: empates
+        )
+        Clube clube2 = new Clube(
+                nome: nome2,
+                vitorias: vitorias2,
+                empates: empates2
+        )
+        Campeonato campeonato = mock(Campeonato) {
+            getClubes().returns([clube1, clube2])
         }
         play {
             lanterna = service.retorneUltimoColocado(campeonato)
         }
-
         expect:
-        lanterna.nome == vencedor
+        lanterna.nome == ultimo
         where:
-        nome       | vitorias | empates | nome2         | vitorias2 | empates2 | vencedor
+        nome       | vitorias | empates | nome2         | vitorias2 | empates2 | ultimo
         "cruzeiro" | 0        | 0       | "corinthians" | 1         | 0        | "cruzeiro"
         "cruzeiro" | 1        | 0       | "corinthians" | 0         | 0        | "corinthians"
         "cruzeiro" | 10       | 1       | "corinthians" | 0         | 10       | "corinthians"
         "cruzeiro" | 1        | 0       | "corinthians" | 0         | 3        | "corinthians"
+    }
+
+    void "Exite tabela atualizada com ordenão dos clubes por pontuação e calcula casos de desempate"() {
+        given:
+
+        List<Clube> clubes = null
+
+        Clube clube1 = new Clube(
+                nome: nome,
+                vitorias: vitorias,
+                empates: empates
+        )
+        Clube clube2 = new Clube(
+                nome: nome2,
+                vitorias: vitorias2,
+                empates: empates2
+        )
+        Clube clube3 = new Clube(
+                nome: nome3,
+                vitorias: vitorias3,
+                empates: empates3
+        )
+        Campeonato campeonato = mock(Campeonato) {
+            getClubes().returns([clube1, clube2, clube3])
+        }
+        play {
+            clubes = service.retorneTabela(campeonato)
+        }
+
+        expect:
+        clubes*.nome == lista
+
+        where:
+        nome       | vitorias | empates | nome2         | vitorias2 | empates2 | nome3   | vitorias3 | empates3 | lista
+        "cruzeiro" | 0        | 0       | "corinthians" | 1         | 0        | "vasco" | 0         | 1        | ["corinthians", "vasco", "cruzeiro"]
+        "cruzeiro" | 1        | 0       | "corinthians" | 0         | 0        | "vasco" | 0         | 1        | ["cruzeiro", "vasco", "corinthians"]
+        "cruzeiro" | 10       | 1       | "corinthians" | 0         | 10       | "vasco" | 3         | 1        | ["cruzeiro", "vasco", "corinthians"]
+        "cruzeiro" | 1        | 0       | "corinthians" | 0         | 3        | "vasco" | 3         | 0        | ["vasco", "cruzeiro", "corinthians"]
+
+
     }
 
 

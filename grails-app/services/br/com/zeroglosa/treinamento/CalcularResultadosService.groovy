@@ -6,15 +6,13 @@ import grails.transaction.Transactional
 class CalcularResultadosService implements CalcularDados{
 
     @Override
-    Clube retorneCampeao(String idCampeonato) {
-        Campeonato campeonato = Campeonato.get(idCampeonato)
+    Clube retorneCampeao(Campeonato campeonato) {
         List<Clube> clubes = ordenaListaClubes(campeonato)
         return clubes.first()
     }
 
     @Override
-    Clube retorneUltimoColocado(String idCampeonato) {
-        Campeonato campeonato = Campeonato.get(idCampeonato)
+    Clube retorneUltimoColocado(Campeonato campeonato) {
         List<Clube> clubes = ordenaListaClubes(campeonato)
         return clubes.last()
     }
@@ -22,6 +20,10 @@ class CalcularResultadosService implements CalcularDados{
     int calculePontuacao(Clube clube) {
         return clube.vitorias * 3 + clube.empates
 
+    }
+
+    @Override
+    List<Clube> retorneTabela(Campeonato campeonato){
     }
 
     @Override

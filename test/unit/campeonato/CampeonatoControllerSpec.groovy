@@ -50,8 +50,8 @@ class CampeonatoControllerSpec extends Specification {
         params.id = "1"
         when:
         String resultadoEsperado = "O campeão é o cruzeiro"
-        controller.calcularResultadosService = mock(CalcularResultadosService)
-        controller.calcularResultadosService.retorneCampeao("1").returns(clube)
+        controller.campeonatoService = mock(CampeonatoService)
+        controller.campeonatoService.obterCampeao("1").returns(clube)
         play{
             controller.exibeCampeao()
         }
@@ -65,8 +65,8 @@ class CampeonatoControllerSpec extends Specification {
         params.id = "1"
         when:
         String resultadoEsperado = "O lanterna é o vasco"
-        controller.calcularResultadosService = mock(CalcularResultadosService)
-        controller.calcularResultadosService.retorneUltimoColocado("1").returns(clube)
+        controller.campeonatoService = mock(CampeonatoService)
+        controller.campeonatoService.obterLanterna("1").returns(clube)
         play{
             controller.exibeLanterna()
         }
