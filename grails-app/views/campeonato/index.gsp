@@ -6,23 +6,23 @@
     <g:javascript library="jquery"/>
     <script type="text/javascript">
 
-        function retornoSalvarCampeonato(data){
-                $("#divMensagemCampeonato").html(data.toString())
-                $("#frmCampeonato input[name=nomeCampeonato]").val("")
-                confirm(data.toString())
-                parent.window.document.location.href = '';
+        function retornoSalvarCampeonato(data) {
+            $("#divMensagemCampeonato").html(data.toString())
+            $("#frmCampeonato input[name=nomeCampeonato]").val("")
+            confirm(data.toString())
+            parent.window.document.location.href = '';
         }
 
-        function retornoSalvarTime(data){
-                $("#divMensagemClube").html(data.toString())
-                confirm(data.toString())
-                $("#frmTimes input[name=nome]").val("")
-                $("#frmTimes input[name=vitorias]").val("")
-                $("#frmTimes input[name=empates]").val("")
-                $("#frmTimes input[name=derrotas]").val("")
-                $("#frmTimes input[name=golsPro]").val("")
-                $("#frmTimes input[name=golsContra]").val("")
-                parent.window.document.location.href = '';
+        function retornoSalvarTime(data) {
+            $("#divMensagemClube").html(data.toString())
+            confirm(data.toString())
+            $("#frmTimes input[name=nome]").val("")
+            $("#frmTimes input[name=vitorias]").val("")
+            $("#frmTimes input[name=empates]").val("")
+            $("#frmTimes input[name=derrotas]").val("")
+            $("#frmTimes input[name=golsPro]").val("")
+            $("#frmTimes input[name=golsContra]").val("")
+            parent.window.document.location.href = '';
         }
 
     </script>
@@ -30,13 +30,14 @@
     <style type="text/css">
     #principal_superior {
         width: 90%;
-        padding:6px 4px;
+        padding: 6px 4px;
         border: 2px solid black;
         clear: both;
     }
-    #campeonatos{
+
+    #campeonatos {
         width: 45%;
-        padding:6px 4px;
+        padding: 6px 4px;
         border: 2px solid black;
         clear: both;
         left: auto;
@@ -44,20 +45,30 @@
 
     #times {
         width: 45%;
-        padding:6px 4px;
+        padding: 6px 4px;
         border: 2px solid black;
         clear: both;
         left: auto;
     }
-    #RetornaDadosCampeao{
-        display:inline-block;
+
+    #RetornaDadosCampeao {
+        display: inline-block;
         width: 22.5%;
         border: 2px solid black;
         clear: both;
         left: auto;
     }
-    #RetornaDadosLanterna{
-        display:inline-block;
+
+    #RetornaDadosLanterna {
+        display: inline-block;
+        width: 22.5%;
+        border: 2px solid black;
+        clear: both;
+        left: auto;
+    }
+
+    #RetornaTabela {
+        display: inline-block;
         width: 22.5%;
         border: 2px solid black;
         clear: both;
@@ -84,26 +95,31 @@
         <li>Número de vitórias</li>
     </ul>
 </div>
+
 <div id="campeonatos">
     <h3>Adicionar Novo Campeonato</h3>
+
     <div id="divMensagemCampeonato"></div>
-    <g:formRemote id="frmCampeonato" name="frmCampeonato" url="[controller: 'campeonato', action: 'criaCampeonato']"  onSuccess="retornoSalvarCampeonato(data)">
-    Nome Campeonato: <input type="text" name="nomeCampeonato" value="" >
-    <input type="submit" name="btnSalvar" value="Salvar">
+    <g:formRemote id="frmCampeonato" name="frmCampeonato" url="[controller: 'campeonato', action: 'criaCampeonato']"
+                  onSuccess="retornoSalvarCampeonato(data)">
+        Nome Campeonato: <input type="text" name="nomeCampeonato" value="">
+        <input type="submit" name="btnSalvar" value="Salvar">
     </g:formRemote>
 </div>
 
 
 <div id="times">
     <h3>Adicionar Times ao Campeonato</h3>
+
     <div id="divMensagemClube"></div>
-    <g:formRemote name="frmTimes" url="[controller: 'campeonato', action: 'adicionaClubes']" update="mensagem"  onSuccess="retornoSalvarTime(data)">
+    <g:formRemote name="frmTimes" url="[controller: 'campeonato', action: 'adicionaClubes']" update="mensagem"
+                  onSuccess="retornoSalvarTime(data)">
         Nome Campeonato: <g:select name="id"
-                  optionKey="id"
-                  from="${Campeonato.list()}"
-                  optionValue="nome"
-                  value="id"
-                  noSelection="['null': 'Selecione Campeonato']"/><br>
+                                   optionKey="id"
+                                   from="${Campeonato.list()}"
+                                   optionValue="nome"
+                                   value="id"
+                                   noSelection="['null': 'Selecione Campeonato']"/><br>
         <label> Nome Time: <input type="text" name="nome" value="" ><br>
         <label> Vitórias:  <input type="text" name="vitorias" value="" ><br>
         <label> Derrotas: <input type="text" name="derrotas" value=""><br>
@@ -117,7 +133,8 @@
 
 <div id="RetornaDadosCampeao">
     <h3>Exibir Campeão</h3>
-    <g:formRemote  name="frmResultadosCampeao" url="[controller: 'campeonato', action: 'exibeCampeao']" onSuccess="retornoSalvarTime(data)">
+    <g:formRemote name="frmResultadosCampeao" url="[controller: 'campeonato', action: 'exibeCampeao']"
+                  onSuccess="retornoSalvarTime(data)">
         <g:select name="id"
                   optionKey="id"
                   from="${Campeonato.list()}"
@@ -127,6 +144,7 @@
         <input type="submit" name="btnSolicitar" value="Exibir Campeao">
     </g:formRemote>
 </div>
+
 <div id="RetornaDadosLanterna">
     <h3>Exibir Lanterna</h3>
     <g:formRemote name="frmResultadosLanterna" url="[controller: 'campeonato', action: 'exibeLanterna']">
@@ -140,6 +158,18 @@
     </g:formRemote>
 </div>
 
-
+<div id="RetornaTabela">
+    <div id="divMensagem"></div>
+    <h3>Exibir Tabela Classificação</h3>
+    <g:formRemote name="frmResultados" url="[controller: 'campeonato', action: 'exibeTabela']" update="">
+        <g:select name="id"
+                  optionKey="id"
+                  from="${Campeonato.list()}"
+                  optionValue="nome"
+                  value="id"
+                  noSelection="['null': 'Selecione Campeonato']"/>
+        <input type="submit" name="btnSolicitar" value="Exibir Tabela">
+    </g:formRemote>
+</div>
 </body>
 </html>

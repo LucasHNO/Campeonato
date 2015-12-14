@@ -24,6 +24,9 @@ class CalcularResultadosService implements CalcularDados{
 
     @Override
     List<Clube> retorneTabela(Campeonato campeonato){
+        List<Clube> clubes = ordenaListaClubes(campeonato)
+        clubes
+
     }
 
     @Override

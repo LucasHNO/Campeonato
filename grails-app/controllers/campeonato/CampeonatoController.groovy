@@ -43,6 +43,9 @@ class CampeonatoController {
     }
 
     def exibeTabela(){
+            //List<Clube> clubes
+            //clubes = campeonatoService.obterTabela(params.id)
+            //render(view:"/campeonato/tabela")
 
     }
 
