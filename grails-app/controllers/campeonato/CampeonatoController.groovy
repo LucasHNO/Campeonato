@@ -12,7 +12,11 @@ class CampeonatoController {
     def campeonatoService
 
     def index() {
-        render(view: "/campeonato/index")
+        render(view: "/index")
+    }
+    def exibeTelaCampeonato(){
+        List<Campeonato> campeonatos = Campeonato.list()
+        render(template:"/campeonato/form", model:[campeonatos: campeonatos])
     }
 
     def criaCampeonato() {

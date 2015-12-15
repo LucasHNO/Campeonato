@@ -3,6 +3,16 @@
 <head>
     <meta name="layout" content="main"/>
     <title>Campeonato ZG</title>
+    <script type="text/javascript">
+
+        function retornoSalvarCampeonato(data) {
+            $("#divMensagemCampeonato").html(data.toString())
+            $("#frmCampeonato input[name=nomeCampeonato]").val("")
+            confirm(data.toString())
+        }
+
+
+    </script>
     <style type="text/css" media="screen">
     #status {
         background-color: #eee;
@@ -88,11 +98,13 @@
 <div id="status" role="complementary">
     <h1>Funcionalidades</h1>
     <ul>
-        <li class="controller"><g:link controller="campeonato" action="criaCampeonato">Criar Campeonato</g:link></li>
+        <li class="controller"><g:link controller="campeonato" action="index">Home</g:link></li>
+        <li class="controller"><g:remoteLink controller="campeonato" action="exibeTelaCampeonato" update="page-body">Criar Campeonato</g:remoteLink></li>
         <li class="controller"><g:link controller="campeonato" action="adicionaClubes">Adicionar Clubes</g:link></li>
         <li class="controller"><g:link controller="campeonato" action="exibeCampeao">Exibir Campeão</g:link></li>
         <li class="controller"><g:link controller="campeonato" action="exibeLanterna">Exibir Lanterna</g:link></li>
         <li class="controller"><g:link controller="campeonato" action="exibeTabela">Exibir Tabela</g:link></li>
+
 
     </ul>
 
