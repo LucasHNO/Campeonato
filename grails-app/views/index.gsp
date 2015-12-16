@@ -10,6 +10,20 @@
             $("#frmCampeonato input[name=nomeCampeonato]").val("")
             confirm(data.toString())
         }
+        function retornoSalvarTime(data) {
+            $("#divMensagemClube").html(data.toString())
+            confirm(data.toString())
+            $("#frmTimes input[name=nome]").val("")
+            $("#frmTimes input[name=vitorias]").val("")
+            $("#frmTimes input[name=empates]").val("")
+            $("#frmTimes input[name=derrotas]").val("")
+            $("#frmTimes input[name=golsPro]").val("")
+            $("#frmTimes input[name=golsContra]").val("")
+        }
+
+        function retornoExibirTabela(data){
+            $("#divTabela").html(data)
+        }
 
 
     </script>
@@ -100,10 +114,10 @@
     <ul>
         <li class="controller"><g:link controller="campeonato" action="index">Home</g:link></li>
         <li class="controller"><g:remoteLink controller="campeonato" action="exibeTelaCampeonato" update="page-body">Criar Campeonato</g:remoteLink></li>
-        <li class="controller"><g:link controller="campeonato" action="adicionaClubes">Adicionar Clubes</g:link></li>
-        <li class="controller"><g:link controller="campeonato" action="exibeCampeao">Exibir Campeão</g:link></li>
-        <li class="controller"><g:link controller="campeonato" action="exibeLanterna">Exibir Lanterna</g:link></li>
-        <li class="controller"><g:link controller="campeonato" action="exibeTabela">Exibir Tabela</g:link></li>
+        <li class="controller"><g:remoteLink controller="campeonato" action="exibeTelaCadastroClubes" update="page-body">Adicionar Clubes</g:remoteLink></li>
+        <li class="controller"><g:remoteLink controller="campeonato" action="exibeTelaCampeao" update="page-body">Exibir Campeão</g:remoteLink></li>
+        <li class="controller"><g:remoteLink controller="campeonato" action="exibeTelaLanterna" update="page-body">Exibir Lanterna</g:remoteLink></li>
+        <li class="controller"><g:remoteLink controller="campeonato" action="exibeTelaTabela" update="page-body">Exibir Tabela</g:remoteLink></li>
 
 
     </ul>

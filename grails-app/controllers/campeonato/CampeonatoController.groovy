@@ -1,10 +1,7 @@
 package campeonato
 
-import br.com.zeroglosa.treinamento.CalcularDados
-import br.com.zeroglosa.treinamento.CalcularResultadosService
 import br.com.zeroglosa.treinamento.Campeonato
 import br.com.zeroglosa.treinamento.Clube
-import grails.converters.JSON;
 
 class CampeonatoController {
 
@@ -16,12 +13,16 @@ class CampeonatoController {
     }
     def exibeTelaCampeonato(){
         List<Campeonato> campeonatos = Campeonato.list()
-        render(template:"/campeonato/form", model:[campeonatos: campeonatos])
+        render(template:"/campeonato/form_campeonato", model:[campeonatos: campeonatos])
     }
 
     def criaCampeonato() {
         Campeonato campeonato = campeonatoService.criaCampeonato(params.nomeCampeonato)
         render("Campeonato ${campeonato.nome} adicionado com sucesso!")
+    }
+    def exibeTelaCadastroClubes(){
+        render(template:"/campeonato/form_clubes")
+
     }
 
     def adicionaClubes() {
@@ -31,11 +32,18 @@ class CampeonatoController {
         render("Clube ${time.nome} adicionado com sucesso ao campeonato!")
     }
 
+    def exibeTelaCampeao(){
+        render(template: "/campeonato/form_campeao")
+    }
+
     def exibeCampeao() {
         Clube campeao
             campeao = campeonatoService.obterCampeao(params.id)
             render("O campeão é o ${campeao.nome}")
 
+    }
+    def exibeTelaLanterna(){
+        render(template: "/campeonato/form_lanterna")
     }
     def exibeLanterna(){
         Clube lanterna
@@ -45,11 +53,14 @@ class CampeonatoController {
 
 
     }
+    def exibeTelaTabela(){
+        render(template: "/campeonato/form_telaTabela")
+    }
 
     def exibeTabela(){
-            //List<Clube> clubes
-            //clubes = campeonatoService.obterTabela(params.id)
-            //render(view:"/campeonato/tabela")
+            List<Clube> clubes
+            clubes = campeonatoService.obterTabela(params.id)
+            render(template: "/campeonato/form_tabela",model: [clubes:clubes])
 
     }
 

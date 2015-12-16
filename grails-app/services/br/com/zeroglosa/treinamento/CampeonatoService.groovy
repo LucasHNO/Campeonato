@@ -58,6 +58,7 @@ class CampeonatoService {
         List<Clube> clubes
         Campeonato campeonato = Campeonato.get(idCampeonato)
         clubes = calcularResultadosService.retorneTabela(campeonato)
+        clubes
     }
 
 
