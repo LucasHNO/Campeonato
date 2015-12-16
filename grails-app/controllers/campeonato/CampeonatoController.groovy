@@ -17,8 +17,14 @@ class CampeonatoController {
     }
 
     def criaCampeonato() {
-        Campeonato campeonato = campeonatoService.criaCampeonato(params.nomeCampeonato)
-        render("Campeonato ${campeonato.nome} adicionado com sucesso!")
+
+        if(params.nomeCampeonato!="") {
+            Campeonato campeonato = campeonatoService.criaCampeonato(params.nomeCampeonato)
+            render("Campeonato ${campeonato.nome} adicionado com sucesso!")
+        }else{
+            render("Por favor digite um nome para o Campeonato!")
+
+        }
     }
     def exibeTelaCadastroClubes(){
         render(template:"/campeonato/form_clubes")
@@ -26,10 +32,14 @@ class CampeonatoController {
     }
 
     def adicionaClubes() {
-
+        if(params.id!="null") {
         Clube time = campeonatoService.adicionaTimes(params.id, params.nome, params.vitorias, params.derrotas,
                 params.empates, params.golsPro, params.golsContra)
         render("Clube ${time.nome} adicionado com sucesso ao campeonato!")
+        }
+        else{
+            render("Campeonato não selecionado ou não criado!")
+        }
     }
 
     def exibeTelaCampeao(){
@@ -38,8 +48,13 @@ class CampeonatoController {
 
     def exibeCampeao() {
         Clube campeao
+             if(params.id!="null") {
             campeao = campeonatoService.obterCampeao(params.id)
             render("O campeão é o ${campeao.nome}")
+             }
+             else{
+                 render("Campeonato não selecionado ou não criado!")
+             }
 
     }
     def exibeTelaLanterna(){
@@ -47,9 +62,13 @@ class CampeonatoController {
     }
     def exibeLanterna(){
         Clube lanterna
-
+            if(params.id!="null") {
             lanterna = campeonatoService.obterLanterna(params.id)
             render("O lanterna é o ${lanterna.nome}")
+            }
+            else{
+                render("Campeonato não selecionado ou não criado!")
+            }
 
 
     }
@@ -59,8 +78,14 @@ class CampeonatoController {
 
     def exibeTabela(){
             List<Clube> clubes
-            clubes = campeonatoService.obterTabela(params.id)
-            render(template: "/campeonato/form_tabela",model: [clubes:clubes])
+            params.id
+            if(params.id!="null") {
+                clubes = campeonatoService.obterTabela(params.id)
+                render(template: "/campeonato/form_tabela", model: [clubes: clubes])
+            }
+            else{
+                render("Campeonato não selecionado ou não criado!")
+            }
 
     }
 
